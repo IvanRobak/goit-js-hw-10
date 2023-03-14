@@ -22,9 +22,9 @@ function onInput(e) {
         );
       }
       if (countries.length === 1) {
-        countryMarkupList(countries);
-      } else {
         countryMarkupInfo(countries);
+      } else {
+        countryMarkupList(countries);
       }
     })
     .catch(error => Notify.failure('Oops, there is no country with that name'));

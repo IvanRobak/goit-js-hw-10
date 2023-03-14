@@ -9,4 +9,3 @@ export function fetchCountries(name) {
     return response.json();
   });
 }
-// return Notify.warning('Oops, there is no country with that name.');
