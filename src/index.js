@@ -13,21 +13,21 @@ inputForm.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 function onInput(e) {
   cleanAreaMarkup();
   const name = e.target.value.trim();
-  if (name === '') return;
+  if (!name) return;
   fetchCountries(name)
-    .then(name)
     .then(countries => {
-      if (countries.length > 10)
-        Notify.info(
+      if (countries.length > 10) {
+        return Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
-      else {
-        if (countries.length === 1) countryMarkupInfo(countries);
-        else countryMarkupList(countries);
+      }
+      if (countries.length === 1) {
+        countryMarkupList(countries);
+      } else {
+        countryMarkupInfo(countries);
       }
     })
-    .catch(error => {})
-    .finally(() => {});
+    .catch(error => Notify.failure('Oops, there is no country with that name'));
 }
 
 function cleanAreaMarkup() {
@@ -45,7 +45,6 @@ function countryMarkupList(name) {
     })
     .join('');
   countryList.innerHTML = markup;
-  countryInfo.innerHTML = '';
 }
 
 function countryMarkupInfo(name) {
@@ -60,5 +59,4 @@ function countryMarkupInfo(name) {
     })
     .join('');
   countryInfo.innerHTML = markupInfo;
-  countryList.innerHTML = '';
 }
